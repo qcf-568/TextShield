@@ -24,7 +24,9 @@ CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir
 <image> Is this image real, entirely generated, or tampered? If it has been tampered, what method was used, and what are the content and bounding box coordinates of the tampered text? Output the thinking process in <think> </think> and \n final answer (number) in <answer> </answer> tags.
 ```
 4. OCR Rectification
-OCR Rectification is integrated directly in the IoU evaluation scriptx.
+
+
+OCR rectification is integrated directly in the IoU evaluation scriptx.
 ```
 unzip ocr_info.zip
 python eval_iou_with_ocr_rectification.py --input [your inference output json file]
