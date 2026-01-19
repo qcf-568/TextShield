@@ -23,7 +23,7 @@ CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir
 ```
 <image> Is this image real, entirely generated, or tampered? If it has been tampered, what method was used, and what are the content and bounding box coordinates of the tampered text? Output the thinking process in <think> </think> and \n final answer (number) in <answer> </answer> tags.
 ```
-4. OCR Rectification
+4. OCR rectification
 
 
 OCR rectification is integrated directly in the IoU evaluation scriptx.
@@ -31,6 +31,16 @@ OCR rectification is integrated directly in the IoU evaluation scriptx.
 unzip ocr_info.zip
 python eval_iou_with_ocr_rectification.py --input [your inference output json file]
 ```
+
+5. Model inference with json-dataset-in and json-dataset-out
+
+Please refer to the (ms-swift inference document](https://swift.readthedocs.io/zh-cn/latest/Instruction/Inference-and-deployment.html#id2)
+
+```
+CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir] --val_dataset [your dataset json file] --max_new_tokens 4096
+```
+
+
 ---
 
 ### Model Training
@@ -41,7 +51,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NPROC_PER_NODE=8 swift sft --model Qwen2.5-
 
 CUDA_VISIBLE_DEVICES=0 swift export --adapters [your pre-training stage output dir] --merge_lora true
 ```
-2. Cold Start
+2. Cold start
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NPROC_PER_NODE=8 swift sft --model [your pre-trained model] --dataset "aaai_train.jsonl#12983" --split_dataset_ratio 0.0001 --train_type lora --torch_dtype bfloat16 --num_train_epochs 1 --per_device_train_batch_size 4 --per_device_eval_batch_size 1 --learning_rate 2e-4 --lora_rank 32 --lora_alpha 64 --target_modules all-linear --freeze_vit False --freeze_aligner False --gradient_accumulation_steps 1 --eval_steps 5000 --save_steps 5000 --save_total_limit 3 --logging_steps 50 --max_length 4096 --output_dir [your output dir] --warmup_ratio 0.03 --dataloader_num_workers 16 --weight_decay 0 --deepspeed zero2
 
