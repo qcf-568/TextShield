@@ -6,6 +6,8 @@
 ### Enviroment
 ```
 pip install ms-swift transformers qwen-vl-utils[decord]==0.0.8
+
+cp orm.py [your original ms-swift orm file, e.g. /usr/local/lib/python3.10/dist-packages/swift/plugin/orm.py]
 ```
 ---
 
@@ -81,3 +83,9 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 NPROC_PER_NODE=8 swift rlhf --rlhf_type grp
 CUDA_VISIBLE_DEVICES=0 swift export --adapters [your GRPO stage output dir] --merge_lora true
 ```
 The final output dir is the TextShield-R1 model and can be used as the input model dir for the above inference stage.
+
+---
+
+### TFR Benchmark
+
+The benchmark is uploading and releasing
