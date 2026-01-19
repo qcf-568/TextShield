@@ -13,17 +13,23 @@ cp orm.py [your original ms-swift orm file, e.g. /usr/local/lib/python3.10/dist-
 
 ### Model Inference 
 
-1. Download the fine-tuned model at [Baidu Cloud](https://pan.baidu.com/s/1sAJ0SkJbCW0MKW-K30tEAg?pwd=text)
+1. All input images should be resized to ensure that their heights and widths are times of 28.
+```
+python resize_image_dir.py --input [your input image dir] --output [your output image dir]
+```
 
-2. Run model start code
+2. Download the fine-tuned model at [Baidu Cloud](https://pan.baidu.com/s/1sAJ0SkJbCW0MKW-K30tEAg?pwd=text)
+
+3. Run model start code
 ```
 CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir] --stream true --max_new_tokens 4096
 ```
-3. Input the prompt and image path
+4. Input the prompt and image path
 ```
-<image> Is this image real, entirely generated, or tampered? If it has been tampered, what method was used, and what are the content and bounding box coordinates of the tampered text? Output the thinking process in <think> </think> and \n final answer (number) in <answer> </answer> tags.
+<image> Is this image real, entirely generated, or tampered? If it has been tampered, what method was used, and what are the content and bounding box coordinates of the tampered text? Output the thinking process in <think> </think> and \n final answer (number) in <answer> </answer> tags. \n Here is an example answer for a real image: <answer> This image is real. </answer> Here is an example answer for an entirely generated image: <answer> This image is entirely generated. </answer> Here is an example answer for a locally tampered image: <answer> This image is tampered. It was tampered by copy-paste. The tampered text reads "small" in the text line "a small yellow flower", and it is located at ... </answer>
 ```
-4. OCR rectification
+
+5. OCR rectification
 
 
 OCR rectification is integrated directly in the IoU evaluation scriptx.
@@ -32,9 +38,15 @@ unzip ocr_info.zip
 python eval_iou_with_ocr_rectification.py --input [your inference output json file]
 ```
 
-5. Model inference with json-dataset-in and json-dataset-out
+6. Model inference with json-dataset-in and json-dataset-out
 
-Please refer to the (ms-swift inference document](https://swift.readthedocs.io/zh-cn/latest/Instruction/Inference-and-deployment.html#id2)
+convert the image dataset dir to json file
+
+```
+python convert_image_dir_to_json.py --input [your image dataset dir]
+```
+
+Inference with the generated datase json file
 
 ```
 CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir] --val_dataset [your dataset json file] --max_new_tokens 4096
