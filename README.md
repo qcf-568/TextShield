@@ -55,6 +55,19 @@ CUDA_VISIBLE_DEVICES=0 swift infer --model [your downloaded textshield model dir
 
 ---
 
+### Model Evaluation
+
+1. Download the word-to-vector weights
+
+```
+wget https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki-news-300d-1M.vec.zip
+unzip wiki-news-300d-1M.vec.zip
+```
+
+2. Run the evaluation script (input should be dataset json file)
+
+---
+
 ### Model Training
 
 1. Pre-training
