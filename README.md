@@ -172,6 +172,9 @@ The proposed TFR benchmark was uploaded to [HuggingFace](https://huggingface.co/
 2. Who is your supervisor/mentor.
 
 
+You can also apply for this dataset via http://121.41.49.212:9000/apply/textshield
+
+
 
 ### Disclaimer
 
